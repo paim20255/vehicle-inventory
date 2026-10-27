@@ -53,4 +53,9 @@ public class Vehicle {
     public void setPrice(double price) {
         this.price = price;
     }
+
+    public void display() {
+        System.out.printf("VIN: %d, Make/Model: %s, Color: %s, Mileage: %d, Price: %.2f\n"
+                , getVehicleId(), this.makeModel, this.color, this.odometerReading, this.price);
+    }
 }
