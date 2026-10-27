@@ -2,14 +2,12 @@ package com.pluralsight;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Main {
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
-
-        Vehicle[] vehicle = new  Vehicle[20];
-
-
+        
         Vehicle car = new Vehicle(101121, "Ford Explorer", "Red", 4500, 13500);
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
         vehicles.add(car);
@@ -29,8 +27,6 @@ public class Main {
         Vehicle car6 = new Vehicle(101126,"Jeep Wrangler","Yellow",30000,16000);
         vehicles.add(car6);
 
-
-
         for (Vehicle currentVehicle : vehicles) {
             System.out.println(currentVehicle.getColor());
 
@@ -45,35 +41,92 @@ public class Main {
                 6 - Quit
                 Enter your command:""";
         System.out.println(menuPrompt);
-
         String userInput = myScanner.nextLine();
+
 
         switch (userInput) {
             case "1" -> {
-                for (Vehicle currentVehicle: vehicles) {
+                for (Vehicle currentVehicle : vehicles) {
                     currentVehicle.getVehicleId();
                     currentVehicle.display();
                 }
+            }
+            case "2" -> {
+                System.out.println("Enter make/model to search for: ");
+                String searchMakeModel = myScanner.nextLine();
+
+                searchVehicles(searchMakeModel, vehicles);
+            }
+            case "3" -> {
+                System.out.println("Enter minium search price: ");
+                String priceMiniumText = myScanner.nextLine();
+                double priceMinium = Double.parseDouble(priceMiniumText);
+
+                System.out.println("Enter maximum search price: ");
+                String priceMaximumText = myScanner.nextLine();
+                double priceMaximum = Double.parseDouble(priceMaximumText);
+
+                searchByPrice(priceMinium, priceMaximum, vehicles);
+            }
+            case "4" -> {
+                System.out.println("Enter the color you want: ");
+                String searchColor = myScanner.nextLine();
+
+                searchForColor(searchColor, vehicles);
+            }
+            case "5" -> {
+                System.out.println("Enter The vehicle info like this: 101123,Chevrolet Malibu,Black,50000,9700");
+                String vehicleCsv = myScanner.nextLine();
+
+                Vehicle newVehicle = parseVehicle(vehicleCsv);
+                vehicles.add(newVehicle);
+
+
+            }
+                case "6" -> {
+                    System.out.println("I'm Tired Goodbye!");
 
                 }
-                case "2" -> {
-                    System.out.println("Enter make/model to search for: ");
-                    String searchMakeModel = myScanner.nextLine();
-                    searchVehicles(searchMakeModel, vehicles);
-
-
-                }
-                case "4" -> {
-                    System.out.println("Enter the color you want: ");
-                    String searchColor = myScanner.nextLine();
-
-                    searchForColor(searchColor, vehicles);
-                }
+            default -> {
+                System.out.println("Not a option dumbass...");
+             }
             }
         }
 
+        public static Vehicle parseVehicle(String vehicleCsv) {
+          String[] parts = vehicleCsv.split(Pattern.quote(","));
+
+          String vehicleIdText = parts[0];
+          long vehicleID = Long.parseLong(vehicleIdText);
+
+          String makeModel = parts[1];
+
+          String color = parts[2];
+
+          int odometerReading = Integer.parseInt(parts[3]);
+
+          double price = Double.parseDouble(parts[4]);
+
+
+          Vehicle newCar = new Vehicle(vehicleID, makeModel, color, odometerReading, price);
+
+            return null;
+        }
+
+    private static void searchByPrice(double priceMinium, double priceMaximum, ArrayList<Vehicle> vehicles) {
+        for (Vehicle currentVehicle : vehicles) {
+            double vehiclePrice = currentVehicle.getPrice();
+
+            if( (vehiclePrice >= priceMinium) && (vehiclePrice <= priceMaximum) ) {
+                currentVehicle.display();
+
+            }
+        }
+    }
+
     private static void searchForColor(String searchColor, ArrayList<Vehicle> vehiclesToSearch) {
         for (Vehicle currentVehicle : vehiclesToSearch) {
+
             String currentColor = currentVehicle.getColor();
             if (currentColor.equals(searchColor)) {
                 currentVehicle.display();
