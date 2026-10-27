@@ -1,11 +1,19 @@
 package com.pluralsight;
 
 public class Vehicle {
-    private long vehicleId = 0;
-    private String makeModel = "";
-    private String color = "";
-    private int odometerReading = 0;
-    private double price = 0.0;
+    private long vehicleId;
+    private String makeModel;
+    private String color;
+    private int odometerReading;
+    private double price;
+
+    public Vehicle(long vehicleId, String makeModel, String color, int odometerReading, double price) {
+        this.vehicleId = vehicleId;
+        this.makeModel = makeModel;
+        this.color = color;
+        this.odometerReading = odometerReading;
+        this.price = price;
+    }
 
     public long getVehicleId() {
         return this.vehicleId;
