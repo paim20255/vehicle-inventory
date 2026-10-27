@@ -6,19 +6,30 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner myScanner = new Scanner(System.in);
-        Vehicle car = new Vehicle(101121, "Ford Explorer", "Red", 4500, 13500);
 
+        Vehicle[] vehicle = new  Vehicle[20];
+
+
+        Vehicle car = new Vehicle(101121, "Ford Explorer", "Red", 4500, 13500);
         ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
         vehicles.add(car);
 
-        Vehicle yourCar = new Vehicle(101122, "Toyota Camry", "Blue", 60000, 11000);
-        vehicles.add(yourCar);
+        Vehicle car2 = new Vehicle(101122, "Toyota Camry", "Blue", 60000, 11000);
+        vehicles.add(car2);
 
         Vehicle car3 = new Vehicle(101123,"Chevrolet Malibu","Black",50000,9700);
         vehicles.add(car3);
 
         Vehicle car4 = new Vehicle(101124,"Honda Civic","White",70000,7500);
         vehicles.add(car4);
+
+        Vehicle car5 = new Vehicle(101125,"Subaru Outback","Green",55000,14500);
+        vehicles.add(car5);
+
+        Vehicle car6 = new Vehicle(101126,"Jeep Wrangler","Yellow",30000,16000);
+        vehicles.add(car6);
+
+
 
         for (Vehicle currentVehicle : vehicles) {
             System.out.println(currentVehicle.getColor());
